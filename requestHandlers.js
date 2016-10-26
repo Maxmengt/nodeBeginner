@@ -1,8 +1,9 @@
 // var exec = require("child_process").exec;
 var querystring = require("querystring"),
-	fs = require("fs");
+	fs = require("fs"),
+	formidable = require("formidable");
 
-function start(response, postData) {
+function start(response, request) {
 	console.log("Request handler 'start' was called.");
 
 	// Try to use react.js
@@ -12,9 +13,10 @@ function start(response, postData) {
 		'charset=UTF-8" />' + 
 		'</head>' + 
 		'<body>' + 
-		'<form action="/upload" method="post">' + 
-		'<textarea name="text" rows="20" cols="60"></textarea>' + 
-		'<input type="submit" value="Submit text" />' + 
+		// Q: What's the meaning of enctype/multipart/form-data ?
+		'<form action="/upload" enctype="multipart/form-data" method="post">' + 
+		'<input type="file" name="upload" />' + 
+		'<input type="submit" value="Upload file" />' + 
 		'</form>' + 
 		'</body>' + 
 		'</html>';
@@ -33,17 +35,38 @@ function start(response, postData) {
 	// );
 }
 
-function upload(response, postData) {
+function upload(response, request) {
 	console.log("Request handler 'upload' was called.");
-	response.writeHead(200, {"Content-Type": "text/plain"});
-	response.write("Hello Upload!\n");
-	response.write("You've sent: " + 
-		// What is querystring ?
-		querystring.parse(postData).text);
-	response.end();
+
+	var form = new formidable.IncomingForm();
+	form.uploadDir = "image";
+
+	console.log("about to parse");
+	form.parse(request, function(error, fields, files) {
+		console.log("parsing done");
+		
+		try {
+			fs.renameSync(files.upload.path, "image/test.png");
+		}
+		catch( err ) {
+			console.log(err);
+		}
+		response.writeHead(200, {"Content-Type": "text/html"});
+		response.write("received image:<br/>");
+
+		// Why cannot ./image/test.png and why "/show" works
+		response.write("<img src='/show' />");
+		response.end();
+	});
+	// response.writeHead(200, {"Content-Type": "text/plain"});
+	// response.write("Hello Upload!\n");
+	// response.write("You've sent: " + 
+	// 	// What is querystring ?
+	// 	querystring.parse(postData).text);
+	// response.end();
 }
 
-function show(response, postData) {
+function show(response, request) {
 	console.log("Request handler 'show' was called.");
 	fs.readFile("./image/test.png", "binary", function(error, file) {
 		if( error ) {
