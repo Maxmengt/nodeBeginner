@@ -1,6 +1,6 @@
 // 请求（ require） Node.js 自带的 http 模块，并且把它赋值给 http 变量
-var http = require("http");
-var url = require("url");
+var http = require("http"),
+	url = require("url");
 
 function start(route, handle) {
 	http.createServer(function(request, response) {
