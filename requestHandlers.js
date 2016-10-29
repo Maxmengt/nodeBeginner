@@ -7,6 +7,7 @@ function start(response, request) {
 	console.log("Request handler 'start' was called.");
 
 	// Try to use react.js
+	// Maybe need to use fs to read .html file and send back to browser
 	var body = '<html>' + 
 		'<head>' + 
 		'<meta http-equiv="Content-Type" content="text/html; ' + 
