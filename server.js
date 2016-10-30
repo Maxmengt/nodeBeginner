@@ -12,7 +12,7 @@ function start(route, handle) {
 
 		route(handle, pathname, response, request);
 
-		// // Had the request receive yet ?
+		// // Had the request received yet ?
 		// request.addListener("data", function(postDataChunk) {
 		// 	postData += postDataChunk;
 		// 	console.log("Received POST data chunk '" + 
