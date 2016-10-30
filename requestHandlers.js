@@ -14,10 +14,13 @@ function start(response, request) {
 		'charset=UTF-8" />' + 
 		'</head>' + 
 		'<body>' + 
-		// Q: What's the meaning of enctype/multipart/form-data ?
+		// Q: What's the meaning of enctype='multipart/form-data' ?
 		'<form action="/upload" enctype="multipart/form-data" method="post">' + 
 		'<input type="file" name="upload" />' + 
-		'<input type="submit" value="Upload file" />' + 
+		'<input type="submit" value="Upload file" />' +
+		// '<form action="/upload" method="post">' + 
+		// '<textarea name="text" row="20" col="60"></textarea>' + 
+		// '<input type="submit" value="Submit text" />' + 
 		'</form>' + 
 		'</body>' + 
 		'</html>';
@@ -63,7 +66,9 @@ function upload(response, request) {
 	// response.write("Hello Upload!\n");
 	// response.write("You've sent: " + 
 	// 	// What is querystring ?
+	// 	// The querystring module provides utilities for parsing and formatting URL query strings.
 	// 	querystring.parse(postData).text);
+	// console.log(typeof querystring.parse(postData), querystring.parse(postData));
 	// response.end();
 }
 
