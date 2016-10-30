@@ -4,7 +4,7 @@ var http = require("http"),
 
 function start(route, handle) {
 	http.createServer(function(request, response) {
-		var postData = "";
+		// var postData = "";
 		var pathname = url.parse(request.url).pathname;
 		console.log("Request for " + pathname + " received.");
 
@@ -12,7 +12,7 @@ function start(route, handle) {
 
 		route(handle, pathname, response, request);
 
-		// Had the request receive yet ?
+		// // Had the request receive yet ?
 		// request.addListener("data", function(postDataChunk) {
 		// 	postData += postDataChunk;
 		// 	console.log("Received POST data chunk '" + 
