@@ -15,6 +15,7 @@ function start(response, request) {
 		'</head>' + 
 		'<body>' + 
 		// Q: What's the meaning of enctype='multipart/form-data' ?
+		// A: http://zhengboyang.com
 		'<form action="/upload" enctype="multipart/form-data" method="post">' + 
 		'<input type="file" name="upload" />' + 
 		'<input type="submit" value="Upload file" />' +
@@ -59,6 +60,8 @@ function upload(response, request) {
 		response.write("received image:<br/>");
 
 		// Why cannot ./image/test.png and why "/show" works
+		// Of course not hahahaha...
+		// Http protocal can't access to your file system.
 		response.write("<img src='/show' />");
 		response.end();
 	});
